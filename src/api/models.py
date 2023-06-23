@@ -17,3 +17,16 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    post = db.Column(db.String(12000),nullable=False)
+    title = db.Column(db.String(80), nullable=False)
+
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "post": self.post,
+            "title": self.title
+        }

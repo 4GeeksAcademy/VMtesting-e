@@ -7,22 +7,21 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 export const Single = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
+	const [post, setPost] = useState({})
+
+	const { id } = useParams();
+
+	useEffect(() => {
+        fetch(process.env.BACKEND_URL + "/api/post/" + id)
+          .then((res) => res.json())
+          .then((data) => setPost(data))
+      }, []);
 
 	return (
-		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
-			<img src={rigoImageUrl} />
-			<hr className="my-4" />
-
-			<Link to="/">
-				<span className="btn btn-primary btn-lg" href="#" role="button">
-					Back home
-				</span>
-			</Link>
+		<div>
+		<h1>{post.title}</h1>
+		<img src={post.post}/>
 		</div>
 	);
 };
 
-Single.propTypes = {
-	match: PropTypes.object
-};
